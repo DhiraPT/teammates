@@ -62,8 +62,7 @@ public class FeedbackNumericalScaleQuestion extends FeedbackQuestion {
 
     @Override
     public String toString() {
-        return "FeedbackNumericalScaleQuestion [id=" + super.getId()
-                + ", createdAt=" + super.getCreatedAt() + ", updatedAt=" + super.getUpdatedAt() + "]";
+        return "FeedbackNumericalScaleQuestion [" + super.getToStringFields() + "]";
     }
 
     public void setFeedBackQuestionDetails(FeedbackNumericalScaleQuestionDetails questionDetails) {

@@ -10,6 +10,7 @@ import jakarta.persistence.Converter;
 import jakarta.persistence.MappedSuperclass;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import com.google.common.reflect.TypeToken;
 
@@ -29,6 +30,9 @@ public abstract class BaseEntity {
     @CreationTimestamp
     @Column(updatable = false)
     private Instant createdAt;
+
+    @UpdateTimestamp
+    private Instant updatedAt;
 
     BaseEntity() {
         // instantiate as child classes
@@ -71,6 +75,14 @@ public abstract class BaseEntity {
 
     public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Instant getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Instant updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     /**
@@ -194,5 +206,10 @@ public abstract class BaseEntity {
         public InstructorPrivileges convertToEntityAttribute(String dbData) {
             return JsonUtils.fromJson(dbData, InstructorPrivileges.class);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "createdAt=" + createdAt + ", updatedAt=" + updatedAt;
     }
 }

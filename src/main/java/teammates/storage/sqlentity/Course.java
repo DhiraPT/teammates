@@ -13,7 +13,6 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 import org.apache.commons.lang.StringUtils;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import teammates.common.util.Const;
 import teammates.common.util.FieldValidator;
@@ -42,9 +41,6 @@ public class Course extends BaseEntity {
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     private List<Section> sections = new ArrayList<>();
-
-    @UpdateTimestamp
-    private Instant updatedAt;
 
     private Instant deletedAt;
 
@@ -125,14 +121,6 @@ public class Course extends BaseEntity {
         this.sections = sections;
     }
 
-    public Instant getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
     public Instant getDeletedAt() {
         return deletedAt;
     }
@@ -148,8 +136,7 @@ public class Course extends BaseEntity {
     @Override
     public String toString() {
         return "Course [id=" + id + ", name=" + name + ", timeZone=" + timeZone + ", institute=" + institute
-                + ", feedbackSessions=" + feedbackSessions + ", createdAt=" + getCreatedAt()
-                + ", updatedAt=" + updatedAt + ", deletedAt=" + deletedAt + "]";
+                + ", feedbackSessions=" + feedbackSessions + ", sections=" + sections + ", deletedAt=" + deletedAt + ", " + super.toString() + "]";
     }
 
     @Override

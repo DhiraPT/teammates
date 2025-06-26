@@ -15,8 +15,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
-import org.hibernate.annotations.UpdateTimestamp;
-
 import teammates.common.util.SanitizationHelper;
 import teammates.common.util.StringHelper;
 
@@ -55,9 +53,6 @@ public abstract class User extends BaseEntity {
 
     @Column(nullable = false)
     private String regKey;
-
-    @UpdateTimestamp
-    private Instant updatedAt;
 
     protected User() {
         // required by Hibernate
@@ -140,14 +135,6 @@ public abstract class User extends BaseEntity {
 
     public void setEmail(String email) {
         this.email = SanitizationHelper.sanitizeEmail(email);
-    }
-
-    public Instant getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
     }
 
     public String getRegKey() {

@@ -17,7 +17,6 @@ import jakarta.persistence.Table;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import teammates.common.datatransfer.NotificationStyle;
 import teammates.common.datatransfer.NotificationTargetUser;
@@ -56,9 +55,6 @@ public class Notification extends BaseEntity {
 
     @Column(nullable = false)
     private boolean shown;
-
-    @UpdateTimestamp
-    private Instant updatedAt;
 
     @OneToMany(mappedBy = "notification", cascade = CascadeType.REMOVE)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -165,14 +161,6 @@ public class Notification extends BaseEntity {
         this.shown = true;
     }
 
-    public Instant getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
     public List<ReadNotification> getReadNotifications() {
         return readNotifications;
     }
@@ -185,8 +173,7 @@ public class Notification extends BaseEntity {
     public String toString() {
         return "Notification [notificationId=" + id + ", startTime=" + startTime + ", endTime=" + endTime
                 + ", style=" + style + ", targetUser=" + targetUser + ", title=" + title + ", message=" + message
-                + ", shown=" + shown + ", createdAt=" + getCreatedAt() + ", updatedAt=" + updatedAt
-                + ", readNotifications=" + readNotifications + "]";
+                + ", shown=" + shown + ", readNotifications=" + readNotifications + ", " + super.toString() + "]";
     }
 
     @Override

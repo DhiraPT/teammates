@@ -20,8 +20,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-import org.hibernate.annotations.UpdateTimestamp;
-
 import teammates.common.datatransfer.FeedbackParticipantType;
 import teammates.common.datatransfer.questions.FeedbackQuestionDetails;
 import teammates.common.util.FieldValidator;
@@ -80,10 +78,6 @@ public abstract class FeedbackQuestion extends BaseEntity implements Comparable<
     @Column(nullable = false)
     @Convert(converter = FeedbackParticipantTypeListConverter.class)
     private List<FeedbackParticipantType> showRecipientNameTo;
-
-    @UpdateTimestamp
-    @Column
-    private Instant updatedAt;
 
     protected FeedbackQuestion() {
         // required by Hibernate
@@ -324,14 +318,6 @@ public abstract class FeedbackQuestion extends BaseEntity implements Comparable<
         this.showRecipientNameTo = showRecipientNameTo;
     }
 
-    public Instant getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
     public Course getCourse() {
         return this.feedbackSession.getCourse();
     }
@@ -340,13 +326,15 @@ public abstract class FeedbackQuestion extends BaseEntity implements Comparable<
         return this.feedbackSession.getCourse().getId();
     }
 
-    @Override
-    public String toString() {
-        return "Question [id=" + id + ", questionNumber=" + questionNumber + ", description=" + description
-                + ", giverType=" + giverType + ", recipientType=" + recipientType
-                + ", numOfEntitiesToGiveFeedbackTo=" + numOfEntitiesToGiveFeedbackTo + ", showResponsesTo="
-                + showResponsesTo + ", showGiverNameTo=" + showGiverNameTo + ", showRecipientNameTo="
-                + showRecipientNameTo + ", createdAt=" + getCreatedAt() + ", updatedAt=" + updatedAt + "]";
+    /**
+     * Returns a string of fields for use in child class toString methods.
+     */
+    protected String getToStringFields() {
+        return "id=" + id + ", feedbackSession=" + feedbackSession + ", questionNumber=" + questionNumber
+                + ", description=" + description + ", giverType=" + giverType + ", recipientType=" + recipientType
+                + ", numOfEntitiesToGiveFeedbackTo=" + numOfEntitiesToGiveFeedbackTo + ", showResponsesTo=" + showResponsesTo
+                + ", showGiverNameTo=" + showGiverNameTo + ", showRecipientNameTo=" + showRecipientNameTo
+                + ", feedbackResponses=" + feedbackResponses + ", " + super.toString();
     }
 
     @Override

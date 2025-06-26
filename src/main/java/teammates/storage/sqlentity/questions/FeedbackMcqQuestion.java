@@ -62,8 +62,7 @@ public class FeedbackMcqQuestion extends FeedbackQuestion {
 
     @Override
     public String toString() {
-        return "FeedbackMcqQuestion [id=" + super.getId()
-                + ", createdAt=" + super.getCreatedAt() + ", updatedAt=" + super.getUpdatedAt() + "]";
+        return "FeedbackMcqQuestion [" + super.getToStringFields() + "]";
     }
 
     public void setFeedBackQuestionDetails(FeedbackMcqQuestionDetails questionDetails) {

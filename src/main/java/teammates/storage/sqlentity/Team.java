@@ -14,8 +14,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-import org.hibernate.annotations.UpdateTimestamp;
-
 import teammates.common.util.FieldValidator;
 
 /**
@@ -36,9 +34,6 @@ public class Team extends BaseEntity {
 
     @Column(nullable = false)
     private String name;
-
-    @UpdateTimestamp
-    private Instant updatedAt;
 
     protected Team() {
         // required by hibernate
@@ -111,18 +106,9 @@ public class Team extends BaseEntity {
         this.name = name;
     }
 
-    public Instant getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
     @Override
     public String toString() {
-        return "Team [id=" + id + ", users=" + users + ", name=" + name
-                + ", createdAt=" + getCreatedAt() + ", updatedAt=" + updatedAt + "]";
+        return "Team [id=" + id + ", users=" + users + ", name=" + name + ", " + super.toString() + "]";
     }
 
 }

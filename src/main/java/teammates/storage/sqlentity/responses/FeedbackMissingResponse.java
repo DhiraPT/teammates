@@ -34,4 +34,9 @@ public class FeedbackMissingResponse extends FeedbackTextResponse {
     public String getRecipientSectionName() {
         return recipientSectionName;
     }
+
+    @Override
+    public String toString() {
+        return "FeedbackMissingResponse [" + super.getToStringFields() + "]";
+    }
 }

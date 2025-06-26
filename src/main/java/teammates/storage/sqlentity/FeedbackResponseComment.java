@@ -16,7 +16,6 @@ import jakarta.persistence.Table;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import teammates.common.datatransfer.FeedbackParticipantType;
 import teammates.common.util.FieldValidator;
@@ -68,9 +67,6 @@ public class FeedbackResponseComment extends BaseEntity {
     @Column(nullable = false)
     @Convert(converter = FeedbackParticipantTypeListConverter.class)
     private List<FeedbackParticipantType> showGiverNameTo;
-
-    @UpdateTimestamp
-    private Instant updatedAt;
 
     private String lastEditorEmail;
 
@@ -186,14 +182,6 @@ public class FeedbackResponseComment extends BaseEntity {
         this.showGiverNameTo = showGiverNameTo;
     }
 
-    public Instant getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
     public String getLastEditorEmail() {
         return lastEditorEmail;
     }
@@ -231,11 +219,11 @@ public class FeedbackResponseComment extends BaseEntity {
 
     @Override
     public String toString() {
-        return "FeedbackResponse [id=" + id + ", giver=" + giver + ", commentText=" + commentText
-                + ", isVisibilityFollowingFeedbackQuestion=" + isVisibilityFollowingFeedbackQuestion
-                + ", isCommentFromFeedbackParticipant=" + isCommentFromFeedbackParticipant
-                + ", lastEditorEmail=" + lastEditorEmail + ", createdAt=" + getCreatedAt()
-                + ", updatedAt=" + updatedAt + "]";
+        return "FeedbackResponseComment [id=" + id + ", feedbackResponse=" + feedbackResponse + ", giver=" + giver
+                + ", giverType=" + giverType + ", giverSection=" + giverSection + ", recipientSection=" + recipientSection
+                + ", commentText=" + commentText + ", isVisibilityFollowingFeedbackQuestion=" + isVisibilityFollowingFeedbackQuestion
+                + ", isCommentFromFeedbackParticipant=" + isCommentFromFeedbackParticipant + ", showCommentTo=" + showCommentTo
+                + ", showGiverNameTo=" + showGiverNameTo + ", lastEditorEmail=" + lastEditorEmail + ", " + super.toString() + "]";
     }
 
     @Override

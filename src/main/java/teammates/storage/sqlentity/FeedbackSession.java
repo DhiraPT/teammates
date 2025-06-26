@@ -21,7 +21,6 @@ import jakarta.persistence.UniqueConstraint;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import teammates.common.util.Const;
 import teammates.common.util.FieldValidator;
@@ -97,9 +96,6 @@ public class FeedbackSession extends BaseEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<FeedbackQuestion> feedbackQuestions = new ArrayList<>();
 
-    @UpdateTimestamp
-    private Instant updatedAt;
-
     private Instant deletedAt;
 
     protected FeedbackSession() {
@@ -153,7 +149,6 @@ public class FeedbackSession extends BaseEntity {
         );
         fs.setId(getId());
         fs.setCreatedAt(getCreatedAt());
-        fs.setUpdatedAt(getUpdatedAt());
         fs.setDeletedAt(getDeletedAt());
         fs.setDeadlineExtensions(getDeadlineExtensions());
 
@@ -383,14 +378,6 @@ public class FeedbackSession extends BaseEntity {
         this.isPublishedEmailSent = isPublishedEmailSent;
     }
 
-    public Instant getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
     public Instant getDeletedAt() {
         return deletedAt;
     }
@@ -401,18 +388,15 @@ public class FeedbackSession extends BaseEntity {
 
     @Override
     public String toString() {
-        return "FeedbackSession [id=" + id + ", courseId=" + course.getId() + ", name=" + name
-                + ", creatorEmail=" + creatorEmail
+        return "FeedbackSession [id=" + id + ", name=" + name + ", course=" + course + ", creatorEmail=" + creatorEmail
                 + ", instructions=" + instructions + ", startTime=" + startTime + ", endTime=" + endTime
-                + ", sessionVisibleFromTime=" + sessionVisibleFromTime + ", resultsVisibleFromTime="
-                + resultsVisibleFromTime + ", gracePeriod=" + gracePeriod + ", isOpenedEmailEnabled="
-                + isOpenedEmailEnabled + ", isClosingSoonEmailEnabled=" + isClosingSoonEmailEnabled
-                + ", isPublishedEmailEnabled=" + isPublishedEmailEnabled
+                + ", sessionVisibleFromTime=" + sessionVisibleFromTime + ", resultsVisibleFromTime=" + resultsVisibleFromTime
+                + ", gracePeriod=" + gracePeriod + ", isOpenedEmailEnabled=" + isOpenedEmailEnabled
+                + ", isClosingSoonEmailEnabled=" + isClosingSoonEmailEnabled + ", isPublishedEmailEnabled=" + isPublishedEmailEnabled
                 + ", isOpeningSoonEmailSent=" + isOpeningSoonEmailSent + ", isOpenedEmailSent=" + isOpenedEmailSent
                 + ", isClosingSoonEmailSent=" + isClosingSoonEmailSent + ", isClosedEmailSent=" + isClosedEmailSent
                 + ", isPublishedEmailSent=" + isPublishedEmailSent + ", deadlineExtensions=" + deadlineExtensions
-                + ", feedbackQuestions=" + feedbackQuestions + ", createdAt=" + getCreatedAt()
-                + ", updatedAt=" + updatedAt + ", deletedAt=" + deletedAt + "]";
+                + ", feedbackQuestions=" + feedbackQuestions + ", deletedAt=" + deletedAt + ", " + super.toString() + "]";
     }
 
     @Override
