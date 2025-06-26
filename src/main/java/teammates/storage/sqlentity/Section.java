@@ -1,6 +1,5 @@
 package teammates.storage.sqlentity;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -121,7 +120,8 @@ public class Section extends BaseEntity {
 
     @Override
     public String toString() {
-        return "Section [id=" + id + ", course=" + course + ", name=" + name + ", teams=" + teams + ", " + super.toString() + "]";
+        return "Section [id=" + id + ", course=" + course + ", name=" + name + ", teams=" + teams
+                + ", " + super.toString() + "]";
     }
 
 }

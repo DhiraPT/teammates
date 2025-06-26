@@ -392,7 +392,8 @@ public class FeedbackSession extends BaseEntity {
                 + ", instructions=" + instructions + ", startTime=" + startTime + ", endTime=" + endTime
                 + ", sessionVisibleFromTime=" + sessionVisibleFromTime + ", resultsVisibleFromTime=" + resultsVisibleFromTime
                 + ", gracePeriod=" + gracePeriod + ", isOpenedEmailEnabled=" + isOpenedEmailEnabled
-                + ", isClosingSoonEmailEnabled=" + isClosingSoonEmailEnabled + ", isPublishedEmailEnabled=" + isPublishedEmailEnabled
+                + ", isClosingSoonEmailEnabled=" + isClosingSoonEmailEnabled
+                + ", isPublishedEmailEnabled=" + isPublishedEmailEnabled
                 + ", isOpeningSoonEmailSent=" + isOpeningSoonEmailSent + ", isOpenedEmailSent=" + isOpenedEmailSent
                 + ", isClosingSoonEmailSent=" + isClosingSoonEmailSent + ", isClosedEmailSent=" + isClosedEmailSent
                 + ", isPublishedEmailSent=" + isPublishedEmailSent + ", deadlineExtensions=" + deadlineExtensions

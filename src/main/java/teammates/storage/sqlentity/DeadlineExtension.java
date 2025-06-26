@@ -96,7 +96,8 @@ public class DeadlineExtension extends BaseEntity {
     @Override
     public String toString() {
         return "DeadlineExtension [id=" + id + ", user=" + user + ", feedbackSessionId=" + feedbackSession.getId()
-                + ", endTime=" + endTime + ", isClosingSoonEmailSent=" + isClosingSoonEmailSent + ", " + super.toString() + "]";
+                + ", endTime=" + endTime + ", isClosingSoonEmailSent=" + isClosingSoonEmailSent
+                + ", " + super.toString() + "]";
     }
 
     @Override

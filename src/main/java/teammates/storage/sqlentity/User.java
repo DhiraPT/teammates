@@ -1,7 +1,6 @@
 package teammates.storage.sqlentity;
 
 import java.security.SecureRandom;
-import java.time.Instant;
 import java.util.Objects;
 import java.util.UUID;
 

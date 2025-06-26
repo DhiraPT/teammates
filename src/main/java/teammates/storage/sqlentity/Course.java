@@ -136,7 +136,8 @@ public class Course extends BaseEntity {
     @Override
     public String toString() {
         return "Course [id=" + id + ", name=" + name + ", timeZone=" + timeZone + ", institute=" + institute
-                + ", feedbackSessions=" + feedbackSessions + ", sections=" + sections + ", deletedAt=" + deletedAt + ", " + super.toString() + "]";
+                + ", feedbackSessions=" + feedbackSessions + ", sections=" + sections + ", deletedAt=" + deletedAt
+                + ", " + super.toString() + "]";
     }
 
     @Override

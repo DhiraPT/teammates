@@ -1,6 +1,5 @@
 package teammates.storage.sqlentity;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -221,9 +220,11 @@ public class FeedbackResponseComment extends BaseEntity {
     public String toString() {
         return "FeedbackResponseComment [id=" + id + ", feedbackResponse=" + feedbackResponse + ", giver=" + giver
                 + ", giverType=" + giverType + ", giverSection=" + giverSection + ", recipientSection=" + recipientSection
-                + ", commentText=" + commentText + ", isVisibilityFollowingFeedbackQuestion=" + isVisibilityFollowingFeedbackQuestion
-                + ", isCommentFromFeedbackParticipant=" + isCommentFromFeedbackParticipant + ", showCommentTo=" + showCommentTo
-                + ", showGiverNameTo=" + showGiverNameTo + ", lastEditorEmail=" + lastEditorEmail + ", " + super.toString() + "]";
+                + ", commentText=" + commentText
+                + ", isVisibilityFollowingFeedbackQuestion=" + isVisibilityFollowingFeedbackQuestion
+                + ", isCommentFromFeedbackParticipant=" + isCommentFromFeedbackParticipant
+                + ", showCommentTo=" + showCommentTo + ", showGiverNameTo=" + showGiverNameTo
+                + ", lastEditorEmail=" + lastEditorEmail + ", " + super.toString() + "]";
     }
 
     @Override

@@ -85,6 +85,11 @@ public abstract class BaseEntity {
         this.updatedAt = updatedAt;
     }
 
+    @Override
+    public String toString() {
+        return "createdAt=" + createdAt + ", updatedAt=" + updatedAt;
+    }
+
     /**
      * Attribute converter between Duration and Long types.
      */
@@ -206,10 +211,5 @@ public abstract class BaseEntity {
         public InstructorPrivileges convertToEntityAttribute(String dbData) {
             return JsonUtils.fromJson(dbData, InstructorPrivileges.class);
         }
-    }
-
-    @Override
-    public String toString() {
-        return "createdAt=" + createdAt + ", updatedAt=" + updatedAt;
     }
 }
