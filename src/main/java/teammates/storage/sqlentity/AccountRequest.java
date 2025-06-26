@@ -34,14 +34,19 @@ public class AccountRequest extends BaseEntity {
     @Id
     private UUID id;
 
+    @Column(nullable = false)
     private String registrationKey;
 
+    @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
     private String email;
 
+    @Column(nullable = false)
     private String institute;
 
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private AccountRequestStatus status;
 
@@ -63,6 +68,7 @@ public class AccountRequest extends BaseEntity {
         this.setComments(comments);
         this.generateNewRegistrationKey();
         this.setCreatedAt(Instant.now());
+        this.setUpdatedAt(this.getCreatedAt());
         this.setRegisteredAt(null);
     }
 
@@ -140,6 +146,9 @@ public class AccountRequest extends BaseEntity {
     }
 
     public void setStatus(AccountRequestStatus status) {
+        if (status == null) {
+            throw new IllegalArgumentException("Account request status cannot be null.");
+        }
         this.status = status;
     }
 
@@ -156,21 +165,22 @@ public class AccountRequest extends BaseEntity {
     }
 
     public void setRegisteredAt(Instant registeredAt) {
+        if (registeredAt != null && registeredAt.isBefore(this.getCreatedAt())) {
+            throw new IllegalArgumentException("Registered time cannot be before creation time.");
+        }
         this.registeredAt = registeredAt;
     }
 
     @Override
     public boolean equals(Object other) {
-        if (other == null) {
-            return false;
-        } else if (this == other) {
+        if (this == other) {
             return true;
-        } else if (this.getClass() == other.getClass()) {
-            AccountRequest otherAccountRequest = (AccountRequest) other;
-            return Objects.equals(this.getId(), otherAccountRequest.getId());
-        } else {
+        }
+        if (other == null || getClass() != other.getClass()) {
             return false;
         }
+        AccountRequest that = (AccountRequest) other;
+        return Objects.equals(id, that.id);
     }
 
     @Override
