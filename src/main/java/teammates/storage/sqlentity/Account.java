@@ -122,8 +122,8 @@ public class Account extends BaseEntity {
         if (other == null || getClass() != other.getClass()) {
             return false;
         }
-        Account account = (Account) other;
-        return Objects.equals(id, account.id);
+        Account otherAccount = (Account) other;
+        return Objects.equals(id, otherAccount.id);
     }
 
     @Override

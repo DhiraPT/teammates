@@ -165,7 +165,7 @@ public class AccountRequest extends BaseEntity {
     }
 
     public void setRegisteredAt(Instant registeredAt) {
-        if (registeredAt != null && registeredAt.isBefore(this.getCreatedAt())) {
+        if (registeredAt != null && (this.getCreatedAt() == null || registeredAt.isBefore(this.getCreatedAt()))) {
             throw new IllegalArgumentException("Registered time cannot be before creation time.");
         }
         this.registeredAt = registeredAt;
@@ -179,8 +179,8 @@ public class AccountRequest extends BaseEntity {
         if (other == null || getClass() != other.getClass()) {
             return false;
         }
-        AccountRequest that = (AccountRequest) other;
-        return Objects.equals(id, that.id);
+        AccountRequest otherAccountRequest = (AccountRequest) other;
+        return Objects.equals(id, otherAccountRequest.id);
     }
 
     @Override

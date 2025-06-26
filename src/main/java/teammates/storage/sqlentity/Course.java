@@ -2,6 +2,7 @@ package teammates.storage.sqlentity;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -37,10 +38,10 @@ public class Course extends BaseEntity {
     private String institute;
 
     @OneToMany(mappedBy = "course")
-    private List<FeedbackSession> feedbackSessions = new ArrayList<>();
+    private final List<FeedbackSession> feedbackSessions = new ArrayList<>();
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
-    private List<Section> sections = new ArrayList<>();
+    private final List<Section> sections = new ArrayList<>();
 
     private Instant deletedAt;
 
@@ -106,19 +107,25 @@ public class Course extends BaseEntity {
     }
 
     public List<FeedbackSession> getFeedbackSessions() {
-        return feedbackSessions;
+        return Collections.unmodifiableList(feedbackSessions);
     }
 
     public void setFeedbackSessions(List<FeedbackSession> feedbackSessions) {
-        this.feedbackSessions = feedbackSessions;
+        this.feedbackSessions.clear();
+        if (feedbackSessions != null) {
+            this.feedbackSessions.addAll(feedbackSessions);
+        }
     }
 
     public List<Section> getSections() {
-        return sections;
+        return Collections.unmodifiableList(sections);
     }
 
     public void setSections(List<Section> sections) {
-        this.sections = sections;
+        this.sections.clear();
+        if (sections != null) {
+            this.sections.addAll(sections);
+        }
     }
 
     public Instant getDeletedAt() {
@@ -126,6 +133,9 @@ public class Course extends BaseEntity {
     }
 
     public void setDeletedAt(Instant deletedAt) {
+        if (deletedAt != null && (this.getCreatedAt() == null || deletedAt.isBefore(this.getCreatedAt()))) {
+            throw new IllegalArgumentException("Deleted time cannot be before creation time.");
+        }
         this.deletedAt = deletedAt;
     }
 
@@ -147,15 +157,13 @@ public class Course extends BaseEntity {
 
     @Override
     public boolean equals(Object other) {
-        if (other == null) {
-            return false;
-        } else if (this == other) {
+        if (this == other) {
             return true;
-        } else if (this.getClass() == other.getClass()) {
-            Course otherCourse = (Course) other;
-            return Objects.equals(this.id, otherCourse.id);
-        } else {
+        }
+        if (other == null || getClass() != other.getClass()) {
             return false;
         }
+        Course otherCourse = (Course) other;
+        return Objects.equals(id, otherCourse.id);
     }
 }
