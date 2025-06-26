@@ -28,10 +28,11 @@ import teammates.common.util.JsonUtils;
 public abstract class BaseEntity {
 
     @CreationTimestamp
-    @Column(updatable = false)
+    @Column(nullable = false, updatable = false)
     private Instant createdAt;
 
     @UpdateTimestamp
+    @Column(nullable = false)
     private Instant updatedAt;
 
     BaseEntity() {
