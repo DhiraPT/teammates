@@ -1,6 +1,7 @@
 package teammates.storage.sqlentity;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -39,7 +40,7 @@ public class Account extends BaseEntity {
 
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private List<ReadNotification> readNotifications = new ArrayList<>();
+    private final List<ReadNotification> readNotifications = new ArrayList<>();
 
     protected Account() {
         // required by Hibernate
@@ -88,15 +89,18 @@ public class Account extends BaseEntity {
     }
 
     public void setEmail(String email) {
-        this.email = SanitizationHelper.sanitizeEmail(email);
+        this.email = SanitizationHelper.sanitizeEmail(email).toLowerCase();
     }
 
     public List<ReadNotification> getReadNotifications() {
-        return readNotifications;
+        return Collections.unmodifiableList(readNotifications);
     }
 
     public void setReadNotifications(List<ReadNotification> readNotifications) {
-        this.readNotifications = readNotifications;
+        this.readNotifications.clear();
+        if (readNotifications != null) {
+            this.readNotifications.addAll(readNotifications);
+        }
     }
 
     @Override
@@ -112,16 +116,14 @@ public class Account extends BaseEntity {
 
     @Override
     public boolean equals(Object other) {
-        if (other == null) {
-            return false;
-        } else if (this == other) {
+        if (this == other) {
             return true;
-        } else if (this.getClass() == other.getClass()) {
-            Account otherAccount = (Account) other;
-            return Objects.equals(this.getId(), otherAccount.getId());
-        } else {
+        }
+        if (other == null || getClass() != other.getClass()) {
             return false;
         }
+        Account account = (Account) other;
+        return Objects.equals(id, account.id);
     }
 
     @Override
