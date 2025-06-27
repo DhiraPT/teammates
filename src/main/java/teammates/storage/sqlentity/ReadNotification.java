@@ -86,7 +86,7 @@ public class ReadNotification extends BaseEntity {
 
     @Override
     public String toString() {
-        return "ReadNotification [id=" + id + ", account=" + account.getId() + ", notification=" + notification.getId()
-                + "]";
+        return "ReadNotification [id=" + id + ", accountId=" + account.getId() + ", notificationId=" + notification.getId()
+                + ", " + super.toString() + "]";
     }
 }
