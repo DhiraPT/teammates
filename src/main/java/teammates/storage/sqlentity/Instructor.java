@@ -101,9 +101,8 @@ public class Instructor extends User {
 
     @Override
     public String toString() {
-        return "Instructor [id=" + super.getId() + ", isDisplayedToStudents=" + isDisplayedToStudents
-                + ", displayName=" + displayName + ", role=" + role + ", instructorPrivileges=" + privileges
-                + ", createdAt=" + super.getCreatedAt() + ", updatedAt=" + super.getUpdatedAt() + "]";
+        return "Instructor [" + super.getToStringFields() + ", isDisplayedToStudents=" + isDisplayedToStudents
+                + ", displayName=" + displayName + ", role=" + role + ", instructorPrivileges=" + privileges + "]";
     }
 
     @Override

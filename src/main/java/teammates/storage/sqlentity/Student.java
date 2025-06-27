@@ -67,7 +67,7 @@ public class Student extends User {
 
     @Override
     public String toString() {
-        return "Student [" + super.toString() + ", comments=" + comments + "]";
+        return "Student [" + super.getToStringFields() + ", comments=" + comments + "]";
     }
 
     @Override
