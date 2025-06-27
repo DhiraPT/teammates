@@ -172,7 +172,7 @@ public class Notification extends BaseEntity {
 
     @Override
     public String toString() {
-        List<UUID> readNotificationIds = readNotifications.stream()
+        List<UUID> readNotificationIds = this.getReadNotifications().stream()
                 .map(ReadNotification::getId).collect(Collectors.toList());
         return "Notification [notificationId=" + id + ", startTime=" + startTime + ", endTime=" + endTime
                 + ", style=" + style + ", targetUser=" + targetUser + ", title=" + title + ", message=" + message

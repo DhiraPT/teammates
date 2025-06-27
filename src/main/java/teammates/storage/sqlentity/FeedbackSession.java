@@ -390,9 +390,9 @@ public class FeedbackSession extends BaseEntity {
 
     @Override
     public String toString() {
-        List<UUID> deadlineExtensionIds = deadlineExtensions.stream()
+        List<UUID> deadlineExtensionIds = this.getDeadlineExtensions().stream()
                 .map(DeadlineExtension::getId).collect(Collectors.toList());
-        List<UUID> feedbackQuestionIds = feedbackQuestions.stream()
+        List<UUID> feedbackQuestionIds = this.getFeedbackQuestions().stream()
                 .map(FeedbackQuestion::getId).collect(Collectors.toList());
         return "FeedbackSession [id=" + id + ", name=" + name + ", courseId=" + course.getId()
                 + ", creatorEmail=" + creatorEmail + ", instructions=" + instructions + ", startTime=" + startTime

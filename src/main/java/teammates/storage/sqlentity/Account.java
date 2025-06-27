@@ -132,7 +132,7 @@ public class Account extends BaseEntity {
 
     @Override
     public String toString() {
-        List<UUID> readNotificationIds = readNotifications.stream()
+        List<UUID> readNotificationIds = this.getReadNotifications().stream()
                 .map(ReadNotification::getId).collect(Collectors.toList());
         return "Account [id=" + id + ", googleId=" + googleId + ", name=" + name + ", email=" + email
                 + ", readNotificationIds=" + readNotificationIds + ", " + super.toString() + "]";

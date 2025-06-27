@@ -153,4 +153,12 @@ public class UsageStatistics extends BaseEntity {
     public List<String> getInvalidityInfo() {
         return new ArrayList<>();
     }
+
+    @Override
+    public String toString() {
+        return "UsageStatistics [id=" + id + ", startTime=" + startTime + ", timePeriod=" + timePeriod
+                + ", numResponses=" + numResponses + ", numCourses=" + numCourses + ", numStudents=" + numStudents
+                + ", numInstructors=" + numInstructors + ", numAccountRequests=" + numAccountRequests
+                + ", numEmails=" + numEmails + ", numSubmissions=" + numSubmissions + ", " + super.toString() + "]";
+    }
 }
