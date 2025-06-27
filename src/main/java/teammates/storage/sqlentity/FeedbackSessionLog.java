@@ -105,8 +105,10 @@ public class FeedbackSessionLog extends BaseEntity {
 
     @Override
     public String toString() {
-        return "FeedbackSessionLog [id=" + id + ", student=" + student + ", feedbackSession=" + feedbackSession
-                + ", feedbackSessionLogType=" + feedbackSessionLogType.getLabel() + ", timestamp=" + timestamp + "]";
+        return "FeedbackSessionLog [id=" + id + ", studentId=" + student.getId()
+                + ", feedbackSessionId=" + feedbackSession.getId()
+                + ", feedbackSessionLogType=" + feedbackSessionLogType.getLabel() + ", timestamp=" + timestamp
+                + ", " + super.toString() + "]";
     }
 
     @Override
