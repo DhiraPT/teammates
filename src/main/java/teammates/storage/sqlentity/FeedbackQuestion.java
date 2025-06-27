@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -329,11 +330,13 @@ public abstract class FeedbackQuestion extends BaseEntity implements Comparable<
      * Returns a string of fields for use in child class toString methods.
      */
     protected String getToStringFields() {
+        List<UUID> feedbackResponseIds = feedbackResponses.stream()
+                .map(FeedbackResponse::getId).collect(Collectors.toList());
         return "id=" + id + ", feedbackSessionId=" + feedbackSession.getId() + ", questionNumber=" + questionNumber
                 + ", description=" + description + ", giverType=" + giverType + ", recipientType=" + recipientType
                 + ", numOfEntitiesToGiveFeedbackTo=" + numOfEntitiesToGiveFeedbackTo + ", showResponsesTo=" + showResponsesTo
                 + ", showGiverNameTo=" + showGiverNameTo + ", showRecipientNameTo=" + showRecipientNameTo
-                + ", feedbackResponses=" + feedbackResponses + ", " + super.toString();
+                + ", feedbackResponseIds=" + feedbackResponseIds + ", " + super.toString();
     }
 
     @Override

@@ -1,10 +1,10 @@
 package teammates.storage.sqlentity;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -132,7 +132,9 @@ public class Account extends BaseEntity {
 
     @Override
     public String toString() {
+        List<UUID> readNotificationIds = readNotifications.stream()
+                .map(ReadNotification::getId).collect(Collectors.toList());
         return "Account [id=" + id + ", googleId=" + googleId + ", name=" + name + ", email=" + email
-                + ", readNotifications=" + readNotifications + ", " + super.toString() + "]";
+                + ", readNotificationIds=" + readNotificationIds + ", " + super.toString() + "]";
     }
 }

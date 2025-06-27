@@ -4,6 +4,8 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -135,8 +137,11 @@ public class Course extends BaseEntity {
 
     @Override
     public String toString() {
+        List<UUID> feedbackSessionIds = feedbackSessions.stream()
+                .map(FeedbackSession::getId).collect(Collectors.toList());
+        List<UUID> sectionIds = sections.stream().map(Section::getId).collect(Collectors.toList());
         return "Course [id=" + id + ", name=" + name + ", timeZone=" + timeZone + ", institute=" + institute
-                + ", feedbackSessions=" + feedbackSessions + ", sections=" + sections + ", deletedAt=" + deletedAt
+                + ", feedbackSessionIds=" + feedbackSessionIds + ", sectionIds=" + sectionIds + ", deletedAt=" + deletedAt
                 + ", " + super.toString() + "]";
     }
 

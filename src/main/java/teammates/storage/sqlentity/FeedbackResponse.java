@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -235,9 +236,13 @@ public abstract class FeedbackResponse extends BaseEntity {
      * Returns a string of fields for use in child class toString methods.
      */
     protected String getToStringFields() {
+        List<Long> feedbackResponseCommentIds = feedbackResponseComments.stream()
+                .map(FeedbackResponseComment::getId).collect(Collectors.toList());
         return "id=" + id + ", giver=" + giver + ", recipient=" + recipient
-                + ", feedbackQuestionId=" + feedbackQuestion.getId() + ", feedbackResponseComments=" + feedbackResponseComments
-                + ", giverSection=" + giverSection + ", recipientSection=" + recipientSection + ", " + super.toString();
+                + ", feedbackQuestionId=" + feedbackQuestion.getId()
+                + ", feedbackResponseCommentIds=" + feedbackResponseCommentIds
+                + ", giverSectionId=" + giverSection.getId() + ", recipientSectionId=" + recipientSection.getId()
+                + ", " + super.toString();
     }
 
     @Override
