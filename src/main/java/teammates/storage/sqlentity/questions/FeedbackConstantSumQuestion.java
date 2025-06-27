@@ -62,8 +62,7 @@ public class FeedbackConstantSumQuestion extends FeedbackQuestion {
 
     @Override
     public String toString() {
-        return "FeedbackConstantSumQuestion [id=" + super.getId()
-                + ", createdAt=" + super.getCreatedAt() + ", updatedAt=" + super.getUpdatedAt() + "]";
+        return "FeedbackConstantSumQuestion [" + super.getToStringFields() + "]";
     }
 
     public void setFeedBackQuestionDetails(FeedbackConstantSumQuestionDetails questionDetails) {

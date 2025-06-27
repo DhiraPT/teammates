@@ -62,8 +62,7 @@ public class FeedbackRankRecipientsQuestion extends FeedbackQuestion {
 
     @Override
     public String toString() {
-        return "FeedbackRankRecipientsQuestion [id=" + super.getId()
-                + ", createdAt=" + super.getCreatedAt() + ", updatedAt=" + super.getUpdatedAt() + "]";
+        return "FeedbackRankRecipientsQuestion [" + super.getToStringFields() + "]";
     }
 
     public void setFeedBackQuestionDetails(FeedbackRankRecipientsQuestionDetails questionDetails) {
