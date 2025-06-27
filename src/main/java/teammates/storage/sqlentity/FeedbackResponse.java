@@ -1,6 +1,5 @@
 package teammates.storage.sqlentity;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -16,8 +15,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-
-import org.hibernate.annotations.UpdateTimestamp;
 
 import teammates.common.datatransfer.questions.FeedbackResponseDetails;
 import teammates.storage.sqlentity.responses.FeedbackConstantSumResponse;
@@ -60,9 +57,6 @@ public abstract class FeedbackResponse extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "recipientSectionId")
     private Section recipientSection;
-
-    @UpdateTimestamp
-    private Instant updatedAt;
 
     protected FeedbackResponse() {
         // required by Hibernate
@@ -232,23 +226,18 @@ public abstract class FeedbackResponse extends BaseEntity {
         this.recipientSection = recipientSection;
     }
 
-    public Instant getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
     @Override
     public List<String> getInvalidityInfo() {
         return new ArrayList<>();
     }
 
-    @Override
-    public String toString() {
-        return "FeedbackResponse [id=" + id + ", giver=" + giver + ", recipient=" + recipient
-                + ", createdAt=" + getCreatedAt() + ", updatedAt=" + updatedAt + "]";
+    /**
+     * Returns a string of fields for use in child class toString methods.
+     */
+    protected String getToStringFields() {
+        return "id=" + id + ", giver=" + giver + ", recipient=" + recipient
+                + ", feedbackQuestionId=" + feedbackQuestion.getId() + ", feedbackResponseComments=" + feedbackResponseComments
+                + ", giverSection=" + giverSection + ", recipientSection=" + recipientSection + ", " + super.toString();
     }
 
     @Override
