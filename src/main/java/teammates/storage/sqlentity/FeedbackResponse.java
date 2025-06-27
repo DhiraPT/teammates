@@ -236,7 +236,7 @@ public abstract class FeedbackResponse extends BaseEntity {
      * Returns a string of fields for use in child class toString methods.
      */
     protected String getToStringFields() {
-        List<Long> feedbackResponseCommentIds = this.getFeedbackResponseComments().stream()
+        List<Long> feedbackResponseCommentIds = feedbackResponseComments.stream()
                 .map(FeedbackResponseComment::getId).collect(Collectors.toList());
         return "id=" + id + ", giver=" + giver + ", recipient=" + recipient
                 + ", feedbackQuestionId=" + feedbackQuestion.getId()

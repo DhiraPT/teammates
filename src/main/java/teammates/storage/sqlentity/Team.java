@@ -108,7 +108,7 @@ public class Team extends BaseEntity {
 
     @Override
     public String toString() {
-        List<UUID> userIds = this.getUsers().stream().map(User::getId).collect(Collectors.toList());
+        List<UUID> userIds = users.stream().map(User::getId).collect(Collectors.toList());
         return "Team [id=" + id + ", userIds=" + userIds + ", name=" + name + ", " + super.toString() + "]";
     }
 

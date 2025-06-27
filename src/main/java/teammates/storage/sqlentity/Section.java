@@ -121,8 +121,7 @@ public class Section extends BaseEntity {
 
     @Override
     public String toString() {
-        List<UUID> teamIds = this.getTeams().stream()
-                .map(Team::getId).collect(Collectors.toList());
+        List<UUID> teamIds = teams.stream().map(Team::getId).collect(Collectors.toList());
         return "Section [id=" + id + ", courseId=" + course.getId() + ", name=" + name + ", teamIds=" + teamIds
                 + ", " + super.toString() + "]";
     }

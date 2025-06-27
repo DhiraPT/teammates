@@ -137,7 +137,7 @@ public class Course extends BaseEntity {
 
     @Override
     public String toString() {
-        List<UUID> feedbackSessionIds = this.getFeedbackSessions().stream()
+        List<UUID> feedbackSessionIds = feedbackSessions.stream()
                 .map(FeedbackSession::getId).collect(Collectors.toList());
         List<UUID> sectionIds = sections.stream().map(Section::getId).collect(Collectors.toList());
         return "Course [id=" + id + ", name=" + name + ", timeZone=" + timeZone + ", institute=" + institute

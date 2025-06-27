@@ -330,7 +330,7 @@ public abstract class FeedbackQuestion extends BaseEntity implements Comparable<
      * Returns a string of fields for use in child class toString methods.
      */
     protected String getToStringFields() {
-        List<UUID> feedbackResponseIds = this.getFeedbackResponses().stream()
+        List<UUID> feedbackResponseIds = feedbackResponses.stream()
                 .map(FeedbackResponse::getId).collect(Collectors.toList());
         return "id=" + id + ", feedbackSessionId=" + feedbackSession.getId() + ", questionNumber=" + questionNumber
                 + ", description=" + description + ", giverType=" + giverType + ", recipientType=" + recipientType
