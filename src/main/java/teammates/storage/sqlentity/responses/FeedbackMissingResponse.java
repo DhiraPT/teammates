@@ -37,6 +37,7 @@ public class FeedbackMissingResponse extends FeedbackTextResponse {
 
     @Override
     public String toString() {
-        return "FeedbackMissingResponse [" + super.getToStringFields() + ", answer=" + this.getAnswer().getAnswerString() + "]";
+        return "FeedbackMissingResponse [" + super.getToStringFields()
+                + ", answer=" + this.getAnswer().getAnswerString() + "]";
     }
 }
