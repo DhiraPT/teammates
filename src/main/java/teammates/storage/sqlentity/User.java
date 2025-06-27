@@ -1,7 +1,6 @@
 package teammates.storage.sqlentity;
 
 import java.security.SecureRandom;
-import java.time.Instant;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -14,8 +13,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
-
-import org.hibernate.annotations.UpdateTimestamp;
 
 import teammates.common.util.SanitizationHelper;
 import teammates.common.util.StringHelper;
@@ -55,9 +52,6 @@ public abstract class User extends BaseEntity {
 
     @Column(nullable = false)
     private String regKey;
-
-    @UpdateTimestamp
-    private Instant updatedAt;
 
     protected User() {
         // required by Hibernate
@@ -142,14 +136,6 @@ public abstract class User extends BaseEntity {
         this.email = SanitizationHelper.sanitizeEmail(email);
     }
 
-    public Instant getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
     public String getRegKey() {
         return this.regKey;
     }
@@ -194,6 +180,14 @@ public abstract class User extends BaseEntity {
         if (googleId != null && getAccount() != null) {
             getAccount().setGoogleId(googleId);
         }
+    }
+
+    /**
+     * Returns a string of fields for use in child class toString methods.
+     */
+    protected String getToStringFields() {
+        return "id=" + id + ", accountId=" + account.getId() + ", courseId=" + course.getId() + ", teamId=" + team.getId()
+                + ", name=" + name + ", email=" + email + ", regKey=" + regKey + ", " + super.toString();
     }
 
     @Override
