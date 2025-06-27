@@ -1,10 +1,10 @@
 package teammates.storage.sqlentity;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,8 +13,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-
-import org.hibernate.annotations.UpdateTimestamp;
 
 import teammates.common.util.FieldValidator;
 
@@ -36,9 +34,6 @@ public class Team extends BaseEntity {
 
     @Column(nullable = false)
     private String name;
-
-    @UpdateTimestamp
-    private Instant updatedAt;
 
     protected Team() {
         // required by hibernate
@@ -111,18 +106,10 @@ public class Team extends BaseEntity {
         this.name = name;
     }
 
-    public Instant getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
     @Override
     public String toString() {
-        return "Team [id=" + id + ", users=" + users + ", name=" + name
-                + ", createdAt=" + getCreatedAt() + ", updatedAt=" + updatedAt + "]";
+        List<UUID> userIds = this.getUsers().stream().map(User::getId).collect(Collectors.toList());
+        return "Team [id=" + id + ", userIds=" + userIds + ", name=" + name + ", " + super.toString() + "]";
     }
 
 }
