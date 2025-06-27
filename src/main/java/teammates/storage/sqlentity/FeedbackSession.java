@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -21,7 +22,6 @@ import jakarta.persistence.UniqueConstraint;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import teammates.common.util.Const;
 import teammates.common.util.FieldValidator;
@@ -96,9 +96,6 @@ public class FeedbackSession extends BaseEntity {
     @OneToMany(mappedBy = "feedbackSession", cascade = CascadeType.REMOVE)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<FeedbackQuestion> feedbackQuestions = new ArrayList<>();
-
-    @UpdateTimestamp
-    private Instant updatedAt;
 
     private Instant deletedAt;
 
@@ -383,14 +380,6 @@ public class FeedbackSession extends BaseEntity {
         this.isPublishedEmailSent = isPublishedEmailSent;
     }
 
-    public Instant getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
     public Instant getDeletedAt() {
         return deletedAt;
     }
@@ -401,18 +390,22 @@ public class FeedbackSession extends BaseEntity {
 
     @Override
     public String toString() {
-        return "FeedbackSession [id=" + id + ", courseId=" + course.getId() + ", name=" + name
-                + ", creatorEmail=" + creatorEmail
-                + ", instructions=" + instructions + ", startTime=" + startTime + ", endTime=" + endTime
-                + ", sessionVisibleFromTime=" + sessionVisibleFromTime + ", resultsVisibleFromTime="
-                + resultsVisibleFromTime + ", gracePeriod=" + gracePeriod + ", isOpenedEmailEnabled="
-                + isOpenedEmailEnabled + ", isClosingSoonEmailEnabled=" + isClosingSoonEmailEnabled
+        List<UUID> deadlineExtensionIds = deadlineExtensions.stream()
+                .map(DeadlineExtension::getId).collect(Collectors.toList());
+        List<UUID> feedbackQuestionIds = feedbackQuestions.stream()
+                .map(FeedbackQuestion::getId).collect(Collectors.toList());
+        return "FeedbackSession [id=" + id + ", name=" + name + ", courseId=" + course.getId()
+                + ", creatorEmail=" + creatorEmail + ", instructions=" + instructions + ", startTime=" + startTime
+                + ", endTime=" + endTime + ", sessionVisibleFromTime=" + sessionVisibleFromTime
+                + ", resultsVisibleFromTime=" + resultsVisibleFromTime + ", gracePeriod=" + gracePeriod
+                + ", isOpenedEmailEnabled=" + isOpenedEmailEnabled
+                + ", isClosingSoonEmailEnabled=" + isClosingSoonEmailEnabled
                 + ", isPublishedEmailEnabled=" + isPublishedEmailEnabled
                 + ", isOpeningSoonEmailSent=" + isOpeningSoonEmailSent + ", isOpenedEmailSent=" + isOpenedEmailSent
                 + ", isClosingSoonEmailSent=" + isClosingSoonEmailSent + ", isClosedEmailSent=" + isClosedEmailSent
-                + ", isPublishedEmailSent=" + isPublishedEmailSent + ", deadlineExtensions=" + deadlineExtensions
-                + ", feedbackQuestions=" + feedbackQuestions + ", createdAt=" + getCreatedAt()
-                + ", updatedAt=" + updatedAt + ", deletedAt=" + deletedAt + "]";
+                + ", isPublishedEmailSent=" + isPublishedEmailSent + ", deadlineExtensionIds=" + deadlineExtensionIds
+                + ", feedbackQuestionIds=" + feedbackQuestionIds + ", deletedAt=" + deletedAt
+                + ", " + super.toString() + "]";
     }
 
     @Override
