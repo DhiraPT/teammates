@@ -16,7 +16,6 @@ import jakarta.persistence.Table;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import teammates.common.util.FieldValidator;
 import teammates.common.util.SanitizationHelper;
@@ -42,9 +41,6 @@ public class Account extends BaseEntity {
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<ReadNotification> readNotifications = new ArrayList<>();
-
-    @UpdateTimestamp
-    private Instant updatedAt;
 
     protected Account() {
         // required by Hibernate
@@ -104,14 +100,6 @@ public class Account extends BaseEntity {
         this.readNotifications = readNotifications;
     }
 
-    public Instant getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
     @Override
     public List<String> getInvalidityInfo() {
         List<String> errors = new ArrayList<>();
@@ -145,7 +133,6 @@ public class Account extends BaseEntity {
     @Override
     public String toString() {
         return "Account [id=" + id + ", googleId=" + googleId + ", name=" + name + ", email=" + email
-                + ", readNotifications=" + readNotifications + ", createdAt=" + getCreatedAt()
-                + ",updatedAt=" + updatedAt + "]";
+                + ", readNotifications=" + readNotifications + ", " + super.toString() + "]";
     }
 }
