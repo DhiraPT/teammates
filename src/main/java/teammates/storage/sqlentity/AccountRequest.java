@@ -15,8 +15,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
-import org.hibernate.annotations.UpdateTimestamp;
-
 import teammates.common.datatransfer.AccountRequestStatus;
 import teammates.common.util.Config;
 import teammates.common.util.Const;
@@ -51,9 +49,6 @@ public class AccountRequest extends BaseEntity {
     private String comments;
 
     private Instant registeredAt;
-
-    @UpdateTimestamp
-    private Instant updatedAt;
 
     protected AccountRequest() {
         // required by Hibernate
@@ -164,14 +159,6 @@ public class AccountRequest extends BaseEntity {
         this.registeredAt = registeredAt;
     }
 
-    public Instant getUpdatedAt() {
-        return this.updatedAt;
-    }
-
-    public void setUpdatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
     @Override
     public boolean equals(Object other) {
         if (other == null) {
@@ -195,7 +182,7 @@ public class AccountRequest extends BaseEntity {
     public String toString() {
         return "AccountRequest [id=" + id + ", registrationKey=" + registrationKey + ", name=" + name + ", email="
                 + email + ", institute=" + institute + ", status=" + status + ", comments=" + comments
-                + ", registeredAt=" + registeredAt + ", createdAt=" + getCreatedAt() + ", updatedAt=" + updatedAt + "]";
+                + ", registeredAt=" + registeredAt + ", " + super.toString() + "]";
     }
 
     public String getRegistrationUrl() {
