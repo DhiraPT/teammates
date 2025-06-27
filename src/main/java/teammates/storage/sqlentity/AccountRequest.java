@@ -63,6 +63,7 @@ public class AccountRequest extends BaseEntity {
         this.setComments(comments);
         this.generateNewRegistrationKey();
         this.setCreatedAt(Instant.now());
+        this.setUpdatedAt(this.getCreatedAt());
         this.setRegisteredAt(null);
     }
 
