@@ -15,7 +15,6 @@ import jakarta.persistence.Table;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import teammates.common.util.FieldValidator;
 
@@ -42,10 +41,6 @@ public class DeadlineExtension extends BaseEntity {
 
     @Column(nullable = false)
     private boolean isClosingSoonEmailSent;
-
-    @UpdateTimestamp
-    @Column(nullable = false)
-    private Instant updatedAt;
 
     protected DeadlineExtension() {
         // required by Hibernate
@@ -98,19 +93,11 @@ public class DeadlineExtension extends BaseEntity {
         this.isClosingSoonEmailSent = isClosingSoonEmailSent;
     }
 
-    public Instant getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
     @Override
     public String toString() {
         return "DeadlineExtension [id=" + id + ", user=" + user + ", feedbackSessionId=" + feedbackSession.getId()
                 + ", endTime=" + endTime + ", isClosingSoonEmailSent=" + isClosingSoonEmailSent
-                + ", createdAt=" + getCreatedAt() + ", updatedAt=" + updatedAt + "]";
+                + ", " + super.toString() + "]";
     }
 
     @Override

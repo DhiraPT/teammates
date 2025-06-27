@@ -13,7 +13,6 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 import org.apache.commons.lang.StringUtils;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import teammates.common.util.Const;
 import teammates.common.util.FieldValidator;
