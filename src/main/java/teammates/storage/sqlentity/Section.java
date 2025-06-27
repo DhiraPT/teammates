@@ -1,10 +1,10 @@
 package teammates.storage.sqlentity;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -17,7 +17,6 @@ import jakarta.persistence.Table;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import teammates.common.util.FieldValidator;
 import teammates.common.util.SanitizationHelper;
@@ -41,9 +40,6 @@ public class Section extends BaseEntity {
     @OneToMany(mappedBy = "section", cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Team> teams;
-
-    @UpdateTimestamp
-    private Instant updatedAt;
 
     protected Section() {
         // required by hibernate
@@ -123,18 +119,12 @@ public class Section extends BaseEntity {
         this.teams = teams;
     }
 
-    public Instant getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
     @Override
     public String toString() {
-        return "Section [id=" + id + ", course=" + course + ", name=" + name + ", teams=" + teams
-                + ", createdAt=" + getCreatedAt() + ", updatedAt=" + updatedAt + "]";
+        List<UUID> teamIds = this.getTeams().stream()
+                .map(Team::getId).collect(Collectors.toList());
+        return "Section [id=" + id + ", courseId=" + course.getId() + ", name=" + name + ", teamIds=" + teamIds
+                + ", " + super.toString() + "]";
     }
 
 }
