@@ -49,8 +49,7 @@ public class FeedbackConstantSumResponse extends FeedbackResponse {
 
     @Override
     public String toString() {
-        return "FeedbackConstantSumResponse [id=" + super.getId()
-            + ", createdAt=" + super.getCreatedAt() + ", updatedAt=" + super.getUpdatedAt() + "]";
+        return "FeedbackConstantSumResponse [" + super.getToStringFields() + ", answer=" + answer.getAnswerString() + "]";
     }
 
     /**

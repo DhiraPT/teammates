@@ -49,8 +49,7 @@ public class FeedbackMsqResponse extends FeedbackResponse {
 
     @Override
     public String toString() {
-        return "FeedbackMsqResponse [id=" + super.getId()
-            + ", createdAt=" + super.getCreatedAt() + ", updatedAt=" + super.getUpdatedAt() + "]";
+        return "FeedbackMsqResponse [" + super.getToStringFields() + ", answer=" + answer.getAnswerString() + "]";
     }
 
     /**
