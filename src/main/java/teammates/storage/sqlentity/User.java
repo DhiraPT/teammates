@@ -186,7 +186,8 @@ public abstract class User extends BaseEntity {
      * Returns a string of fields for use in child class toString methods.
      */
     protected String getToStringFields() {
-        return "id=" + id + ", accountId=" + account.getId() + ", courseId=" + course.getId() + ", teamId=" + team.getId()
+        return "id=" + id + ", accountId=" + (account == null ? "null" : account.getId())
+                + ", courseId=" + course.getId() + ", teamId=" + (team == null ? "null" : team.getId())
                 + ", name=" + name + ", email=" + email + ", regKey=" + regKey + ", " + super.toString();
     }
 
