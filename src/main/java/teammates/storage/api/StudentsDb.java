@@ -356,7 +356,7 @@ public final class StudentsDb extends EntitiesDb<CourseStudent, StudentAttribute
     }
 
     private List<CourseStudent> getAllCourseStudentEntitiesForEmail(String email) {
-        return load().filter("email =", email).list();
+        return load().filter("email =", email).order("courseId").list();
     }
 
     private CourseStudent getCourseStudentEntityForRegistrationKey(String registrationKey) {
@@ -376,7 +376,7 @@ public final class StudentsDb extends EntitiesDb<CourseStudent, StudentAttribute
     }
 
     private Query<CourseStudent> getCourseStudentsForCourseQuery(String courseId) {
-        return load().filter("courseId =", courseId);
+        return load().filter("courseId =", courseId).order("sectionName").order("teamName").order("name");
     }
 
     private Query<CourseStudent> getCourseStudentsForCourseQuery(String courseId, int batchSize) {
@@ -401,7 +401,7 @@ public final class StudentsDb extends EntitiesDb<CourseStudent, StudentAttribute
     }
 
     private Query<CourseStudent> getCourseStudentsForGoogleIdQuery(String googleId) {
-        return load().filter("googleId =", googleId);
+        return load().filter("googleId =", googleId).order("courseId");
     }
 
     private List<CourseStudent> getCourseStudentEntitiesForGoogleId(String googleId) {
@@ -412,6 +412,7 @@ public final class StudentsDb extends EntitiesDb<CourseStudent, StudentAttribute
         return load()
                 .filter("teamName =", teamName)
                 .filter("courseId =", courseId)
+                .order("name")
                 .list();
     }
 
@@ -426,6 +427,7 @@ public final class StudentsDb extends EntitiesDb<CourseStudent, StudentAttribute
         return load()
                 .filter("sectionName =", sectionName)
                 .filter("courseId =", courseId)
+                .order("name")
                 .list();
     }
 
