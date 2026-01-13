@@ -147,20 +147,14 @@ public final class InstructorsLogic {
      * Gets emails of all instructors of a course.
      */
     public List<String> getInstructorEmailsForCourse(String courseId) {
-        List<String> instructorEmails = instructorsDb.getInstructorEmailsForCourse(courseId);
-        instructorEmails.sort(Comparator.naturalOrder());
-
-        return instructorEmails;
+        return instructorsDb.getInstructorEmailsForCourse(courseId);
     }
 
     /**
      * Gets all instructors of a course.
      */
     public List<InstructorAttributes> getInstructorsForCourse(String courseId) {
-        List<InstructorAttributes> instructorReturnList = instructorsDb.getInstructorsForCourse(courseId);
-        InstructorAttributes.sortByName(instructorReturnList);
-
-        return instructorReturnList;
+        return instructorsDb.getInstructorsForCourse(courseId);
     }
 
     /**

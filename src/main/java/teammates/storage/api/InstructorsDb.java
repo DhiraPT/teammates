@@ -174,6 +174,7 @@ public final class InstructorsDb extends EntitiesDb<Instructor, InstructorAttrib
 
         return load()
                 .filter("courseId =", courseId)
+                .order("email")
                 .list()
                 .stream()
                 .map(Instructor::getEmail)
@@ -367,6 +368,7 @@ public final class InstructorsDb extends EntitiesDb<Instructor, InstructorAttrib
         return load()
                 .filter("courseId =", courseId)
                 .filter("isDisplayedToStudents =", true)
+                .order("name")
                 .list();
     }
 
@@ -394,7 +396,7 @@ public final class InstructorsDb extends EntitiesDb<Instructor, InstructorAttrib
     }
 
     private Query<Instructor> getInstructorsForGoogleIdQuery(String googleId) {
-        return load().filter("googleId =", googleId);
+        return load().filter("googleId =", googleId).order("courseId");
     }
 
     private List<Instructor> getInstructorEntitiesForGoogleId(String googleId) {
@@ -415,7 +417,7 @@ public final class InstructorsDb extends EntitiesDb<Instructor, InstructorAttrib
     }
 
     private List<Instructor> getInstructorEntitiesForCourse(String courseId) {
-        return load().filter("courseId =", courseId).list();
+        return load().filter("courseId =", courseId).order("name").list();
     }
 
     @Override
