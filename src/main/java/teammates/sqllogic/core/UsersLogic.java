@@ -960,13 +960,6 @@ public final class UsersLogic {
     }
 
     /**
-     * Sorts the instructors list alphabetically by name.
-     */
-    public static <T extends User> void sortByName(List<T> users) {
-        users.sort(Comparator.comparing(user -> user.getName().toLowerCase()));
-    }
-
-    /**
      * Checks if an instructor with {@code googleId} can create a course with
      * {@code institute}
      * (ie. has an existing course(s) with the same {@code institute}).

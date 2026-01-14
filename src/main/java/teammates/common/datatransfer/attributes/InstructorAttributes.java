@@ -210,13 +210,6 @@ public final class InstructorAttributes extends EntityAttributes<Instructor> {
         return errors;
     }
 
-    /**
-     * Sorts the instructors list alphabetically by name.
-     */
-    public static void sortByName(List<InstructorAttributes> instructors) {
-        instructors.sort(Comparator.comparing(instructor -> instructor.name.toLowerCase()));
-    }
-
     @Override
     public String toString() {
         return JsonUtils.toJson(this, InstructorAttributes.class);
