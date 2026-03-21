@@ -202,6 +202,33 @@ public class TaskQueuer {
         }
     }
 
+    /**
+     * Schedules for the given email to be sent immediately.
+     *
+     * @param email the email to be sent
+     */
+    public void schedulePriorityEmailForSending(EmailWrapper email) {
+        try {
+            SendEmailRequest request = new SendEmailRequest(email);
+
+            addTask(TaskQueue.PRIORITY_EMAIL_QUEUE_NAME, TaskQueue.SEND_EMAIL_WORKER_URL,
+                            new HashMap<>(), request);
+        } catch (Exception e) {
+            String emailSubject = email.getSubject();
+            String emailSenderName = email.getSenderName();
+            String emailSender = email.getSenderEmail();
+            String emailReceiver = email.getRecipient();
+            String emailReplyToAddress = email.getReplyTo();
+
+            log.severe("Error when adding email to priority task queue: " + e.getMessage() + "\n"
+                       + "Email sender: " + emailSender + "\n"
+                       + "Email sender name: " + emailSenderName + "\n"
+                       + "Email receiver: " + emailReceiver + "\n"
+                       + "Email subject: " + emailSubject + "\n"
+                       + "Email reply-to address: " + emailReplyToAddress);
+        }
+    }
+
     private void scheduleEmailForSending(EmailWrapper email, long emailDelayTimer) {
         try {
             SendEmailRequest request = new SendEmailRequest(email);
