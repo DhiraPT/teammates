@@ -852,18 +852,19 @@ public class GetFeedbackResponsesActionTest extends BaseActionTest<GetFeedbackRe
                 Const.ParamsNames.INTENT, Intent.INSTRUCTOR_SUBMISSION.toString(),
                 Const.ParamsNames.FEEDBACK_SESSION_MODERATED_PERSON, stubInstructor.getEmail(),
         };
+        // With REG_KEY as the min auth level, unauthenticated requests (no cookie, no key param)
+        // are rejected at the level gate before reaching action-specific checks.
         GetFeedbackResponsesAction action1 = getAction(params1);
         UnauthorizedAccessException uae1 = assertThrows(UnauthorizedAccessException.class, action1::checkAccessControl);
-        assertEquals("User is not logged in", uae1.getMessage());
+        assertEquals("Not authorized to access this resource.", uae1.getMessage());
 
-        when(mockLogic.getInstructorByGoogleId(stubCourse.getId(), null)).thenReturn(null);
         String[] params2 = {
                 Const.ParamsNames.FEEDBACK_QUESTION_ID, questionThatCanBeModerated.getId().toString(),
                 Const.ParamsNames.INTENT, Intent.INSTRUCTOR_SUBMISSION.toString(),
         };
         GetFeedbackResponsesAction action2 = getAction(params2);
         UnauthorizedAccessException uae2 = assertThrows(UnauthorizedAccessException.class, action2::checkAccessControl);
-        assertEquals("Trying to access system using a non-existent instructor entity", uae2.getMessage());
+        assertEquals("Not authorized to access this resource.", uae2.getMessage());
         verify(mockLogic, never()).getInstructorByGoogleId(stubCourse.getId(), null);
 
         // Student
@@ -871,7 +872,6 @@ public class GetFeedbackResponsesActionTest extends BaseActionTest<GetFeedbackRe
         stubFeedbackSession.setSessionVisibleFromTime(Instant.now());
         questionAnswerableToStudent.setGiverType(FeedbackParticipantType.STUDENTS);
         when(mockLogic.getFeedbackQuestion(questionAnswerableToStudent.getId())).thenReturn(questionAnswerableToStudent);
-        when(mockLogic.getStudentByGoogleId(stubCourse.getId(), null)).thenReturn(null);
 
         String[] params3 = {
                 Const.ParamsNames.FEEDBACK_QUESTION_ID, questionAnswerableToStudent.getId().toString(),
@@ -879,7 +879,7 @@ public class GetFeedbackResponsesActionTest extends BaseActionTest<GetFeedbackRe
         };
         GetFeedbackResponsesAction action3 = getAction(params3);
         UnauthorizedAccessException uae3 = assertThrows(UnauthorizedAccessException.class, action3::checkAccessControl);
-        assertEquals("Trying to access system using a non-existent student entity", uae3.getMessage());
+        assertEquals("Not authorized to access this resource.", uae3.getMessage());
 
         questionAnswerableToStudent.setShowResponsesTo(List.of(FeedbackParticipantType.INSTRUCTORS));
         questionAnswerableToStudent.setShowRecipientNameTo(List.of(FeedbackParticipantType.INSTRUCTORS));
@@ -893,7 +893,7 @@ public class GetFeedbackResponsesActionTest extends BaseActionTest<GetFeedbackRe
         };
         GetFeedbackResponsesAction action4 = getAction(params4);
         UnauthorizedAccessException uae4 = assertThrows(UnauthorizedAccessException.class, action4::checkAccessControl);
-        assertEquals("User is not logged in", uae4.getMessage());
+        assertEquals("Not authorized to access this resource.", uae4.getMessage());
     }
 
     @Test
